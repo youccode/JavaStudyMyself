@@ -1,4 +1,4 @@
-package ps;
+package ps.Day0;
 
 import java.util.Arrays;
 import java.util.Scanner;
