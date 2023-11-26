@@ -1,3 +1,4 @@
+package tips;
 
 public class AboutClass {
 

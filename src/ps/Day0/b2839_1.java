@@ -1,4 +1,4 @@
-package ps;
+package ps.Day0;
 import java.util.Scanner;
 
 public class b2839_1 {

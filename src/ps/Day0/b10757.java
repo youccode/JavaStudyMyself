@@ -1,4 +1,4 @@
-package ps;
+package ps.Day0;
 
 import java.math.BigInteger;
 import java.util.Scanner;
