@@ -32,7 +32,7 @@ public class stringBuilderVsStringBuffer {
 
         StringBuilder
         - Single-threaded environment
-          or where multiple threads will not acess the same StringBuilder instance concurrently.
+          or where multiple threads will not access the same StringBuilder instance concurrently.
 
         StringBuffer
         - multi-threaded environment and need thread safety.
