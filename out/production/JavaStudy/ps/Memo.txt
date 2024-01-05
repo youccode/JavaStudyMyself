@@ -1,0 +1,122 @@
+1. 자주 까먹는데 중요한 점.
+ => scanner를 사용하고 나서는 꼭 scanner.close()를 통해서 scanner를 종료할 것
+
+2. Scanner 사용범
+ => scanner.hasNext()를 사용하는 경우, 이는 다음에 올 값이 있는 지를 측정하는 것이 아님.
+ => 현재 scanner 속에 있는 내용물이 scan 되기 전에, 안에 값이 있는 지 없는 지를
+    판단하는 용도인듯
+
+What I learned today
+
+1. Java에서 배열을 복사하는 방법
+
+    - 먼저, 배열을 복사하는 방법으로는 Shallow Copy 와 Deep Copy가 존재함
+    - Shallow Copy : A 배열이 지닌 메모리 주소값을 B 배열에 복사
+                     하나의 값이 변경되면 동시에 다른 배열의 값도 변화
+
+    - Deep Copy : A 배열이 지닌 실제 값을 복사하여 새로운 메모리 공간에 B 배열을 생성
+                  A 배열의 값이 변하는 것과 B 배열의 값이 변하는 것은 무관함.
+
+    - 배열 복사 method
+        - int[] a = { 1, 2, 3, 4 };
+          int[] b = a;
+          => Shallow Copy를 진행하는 방법.
+
+        - arr.clone() 함수를 이용하여 Deep Copy 가능
+
+        - Arrays Class를 이용하여 배열 복사 메소드들을 사용 가능함.
+
+            - Arrays.copyOf(복사할 배열, 길이) : 시작점 ~ 길이까지의 배열을 복사함.
+
+            - Arrays.copyOfRange(복사 배열, begin, end) : 시작 지점 ~ 끝 지점까지 배열 복사
+                - 시작점은 inclusive 끝 지점은 exclusive 주의
+
+            - System.arraycopy(src, srcPos, dest, destPos, length);
+
+              src - 원본 배열
+              srcPos - 원본 배열의 복사 시작 위치
+              dest - 복사할 배열
+              destPost - 복사할 배열의 복사 시작 위치
+              length - 복사할 요소의 개수
+
+2. Java Scanner를 이용하지 않고 입력 받는 방법
+
+    - bufferedReader를 이용
+        - buffer의 사이즈가 8192byte(8KB)로 Scanner보다 8배 많음. 입출력 효율 높음
+        - Data를 parsing 하지 않고 모두 String으로 넘어옴.
+        - I/O Exception을 던짐. throw 하거나 try/catch를 해야함.
+
+    - System.in.read()를 사용하는 방법
+        - 동일하게 I/O Exception 처리를 해주어야 함.
+        - 동시에 아스키코드만큼의 data를 받을 수 있음. int 형으로 data를 입력받음.
+
+3. String의 값을 비교하는 경우
+
+    - String의 value를 비교하는 경우, String.equals(str) Call by Value의 형태로 비교
+    - String str == String str2 => Call by Reference의 형태로 메모리 주소값이 같은지 비교
+
+1. Java String concat 함수 사용법
+    - str1.concat(str2)
+    - str1 문자열 뒤에 str2 문자열이 추가되는 형식.
+    - append 함수와 동일하다고 생각하면 될듯.
+
+새로 알게 된 progrmming에 대한 지식들
+
+1. Synchronous vs Asynchronous
+ - Async is multi-thread, which means operations or programs can run in parallel. Sync is single-thread, so only one operation or program will run at a time.
+   Async is non-blocking, which means it will send multiple requests to a server. Sync is blocking — it will only send the server one request at a time and will wait for that request to be answered by the server.
+   Async increases throughput because multiple operations can run at the same time. Sync is slower and more methodical.
+
+2. System.out.println의 속도
+ - System.out.println의 속도는 결론적으로는 "생각보다 많이 느리다."
+ - 내부의 코드를 보았을 때, println의 경우, PrintStream 내부에 있는 method인데, 이는 안정적인 출력을
+   및 편의를 위한 것이라고 한다. 내부의 코드를 까보니, 실제로 Synchronized가 걸려있는 것을 확인했다.
+   즉, 코드에서 sync가 걸려버리니 속도에 확 브레이크가 걸리는 듯 싶다.
+
+3. System.out.println을 대체해주기 위한 녀석, BufferedWriter
+
+4. Scanner vs BufferedReader
+ - Scanner의 경우, 들어온 데이터를 바로바로 사용자에게 넘겨주는 형태이다.
+    - 즉, Scanner에 데이터가 들어온다면, Scanner는 무조건 그 값을 넘겨주어야 한다.
+    - 그리고 입력받은 데이터를 parsing하여 가져오기 때문에 시간이 조금 더 걸린다.
+
+ - BufferedReader의 경우, 이름 그대로 데이터가 들어온다면 이를 buffer로 넘겨준다.
+    - data parsing을 진행하지 않고, String으로 바로 가져온다.
+    - Thread safe하다. => multi thread의 상황에서도 사용이 가능하다.
+        - Scanner의 경우, 다른 thread에서는 그 값에 접근이 불가능하지만, buffer의 경우 가능함.
+
+5. System.out.println을 대체하기 위한 BufferedWriter
+    - bw.write(something) => something을 terminal에 출력한다.
+    - bw.flush() => buffer에 남아있는 data를 모두 비워낸다.
+    - bw.close() => 사용 종료
+
+1. 특정한 조건에서만 사용이 가능한 정렬 방법
+ - Counting Sort
+    - 최대값과 최솟값의 차이가 100만 이하인 경우에서만 사용이 가능한(효율이 있는) Sorting
+    - 특히나 정렬하는 값에 같은 값이 많은 경우에 매우 효과적이다.
+    - 정렬 방법
+        1. 가장 작은 데이터부터 최대 데이터까지 담을 수 있는 array를 하나 만든다.
+        2. 데이터를 하나씩 훑어가면서 해당 index의 데이터 값을 증가
+        3. 증가된 리스트에서 값이 0인 아닌 것들만 index 값을 출력
+
+    - Counting Sort의 Time Complexity의 경우, O(n + k)이다.
+        - 입력 받은 N개의 데이터를 한 번씩 훑으면서 값을 정렬하기 때문에 O(n)을 충족하는데,
+        - n의 값보다 n 내부에 있는 최댓값 k가 존재한다면, 그 값을 출력하기 위해 다시 loop를 도는데 이것이 k이므로
+          시간복잡도는 O(n+k)가 된다. => k 값이 매우 크다면 k가 시간복잡도를 결정하게 되고, 매우 작다면 무시 가능하다.
+
+
+2. BufferedWriter를 이용한 bw.write()에 그냥 int를 넣게 될 경우,
+   이는 하나의 글자, 즉 Character를 출력하는 method임으로 올바른 출력이 되지 않을 수 있다. 그러므로 ""을 더해줘서 String의 형태로 만들면 올바른 출력이 된다.
+
+3. Java에서  Sorting을 하는 과정에서 시간 초과가 난다면, 알고리즘에 문제가 있는 상황이다.
+    - Bubble, Selection, Insert Sorting들의 경우, 모두 Time Complexity가 O(N^2)에 해당
+    - 시간 복잡도가 O(N logN )에 해당하는 Sorting은 Heap or Merge Sorting을 이용해야 함.
+
+
+Set vs Hashset in Java
+- Set represents a generic "set of values"
+    - in Set there are TreeSet and HashSet
+    - TreeSet is a set where the elements are sorted or ordered
+    - HashSet is a set where the elements are not sorted or ordered
+
+    - So, HashSet is much faster than TreeSet
