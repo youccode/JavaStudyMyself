@@ -1,0 +1,14 @@
+
+        DP(Dynamic Programming)
+        : method for solving complex problems by breaking them down into simpler
+        overlapping subproblems and soovling each subproblem only once, storing the solutions to
+        subproblems in a table to avoid redundant computations.
+
+        1. Top - down approach (Memoization)
+        - using the recursive way, and the solutions are stored, so that the recomputaion is not happened
+
+        2. Bottom - up approach (Tabulation)
+        - solving smaller subproblems first and then using their solutions
+        to build up to the solution of the original problem.
+
+        - subproblem's solutions are stored in table.
