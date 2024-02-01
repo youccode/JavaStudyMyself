@@ -1,8 +1,0 @@
-
-Set vs Hashset in Java
-- Set represents a generic "set of values"
-    - in Set there are TreeSet and HashSet
-    - TreeSet is a set where the elements are sorted or ordered
-    - HashSet is a set where the elements are not sorted or ordered
-
-    - So, HashSet is much faster than TreeSet

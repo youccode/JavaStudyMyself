@@ -1,5 +1,0 @@
-
-1. Java String concat 함수 사용법
-    - str1.concat(str2)
-    - str1 문자열 뒤에 str2 문자열이 추가되는 형식.
-    - append 함수와 동일하다고 생각하면 될듯.
